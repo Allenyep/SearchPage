@@ -23,6 +23,9 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 
+    <!-- Dropdown.css -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">
+
     <!-- Template styles -->
     <style rel="stylesheet">
         /* TEMPLATE STYLES */
@@ -83,6 +86,10 @@
         .flex-center {
             color: #fff;
         }
+
+        .seabox{
+            min-width: 200px;
+        }
     </style>
 
 </head>
@@ -141,20 +148,20 @@
                         </li>
                         <li>
                             <form action="" method="Get" id="SearchForm">
-                                <div class="md-form input-group" style="width: 70%; margin: 0 auto;">
+                                <div class="md-form input-group" style="width: 70%; margin: 0 auto; ">
                                      <div class="input-group">
                                         <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
-                                        <input type="text" class="form-control" placeholder="Search" id="SearchContent" style="color: white;">                          
-                                    </div><!-- /input-group -->
-                                    <select class="mdb-select" id="SearchSelect">
-                                            <option value="baidu" selected class="rounded-circle">百度</option>
-                                            <option value="zhihu" class="rounded-circle">知乎</option>
-                                            <option value="wangpan" class="rounded-circle">百度网盘</option>
-                                            <option value="weibo" class="rounded-circle">微博</option>
-                                            <option value="icon" class="rounded-circle">Icon</option>
-                                            <option value="github" class="rounded-circle">github</option>
-                                            <option value="google" class="rounded-circle">google</option>
-                                    </select>    
+                                        <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" style="color: white;">                          
+                                        <select class="md-select" id="SearchSelect" >
+                                                <option value="baidu" selected class="rounded-circle">百度</option>
+                                                <option value="zhihu" class="rounded-circle">知乎</option>
+                                                <option value="wangpan" class="rounded-circle">百度网盘</option>
+                                                <option value="weibo" class="rounded-circle">微博</option>
+                                                <option value="icon" class="rounded-circle">Icon</option>
+                                                <option value="github" class="rounded-circle">github</option>
+                                                <option value="google" class="rounded-circle">google</option>
+                                        </select> 
+                                    </div> 
                                 </div>
                                 <a href="javascript:void();" class="btn btn-info btn-lg" onclick="SearchSee()"> See!</a>
                             </form>
@@ -382,11 +389,18 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
 
+    <!-- doropdown.js -->
+    <script type="text/javascript" src="js/jquery.dropdown.js"></script>
+
     <script type="text/javascript">        
          // Material Select Initialization
-         $(document).ready(function() {
-            // $('.mdb-select').material_select();
+          // $.material.init();
+
+          $(document).ready(function() {
+            $(".select").dropdown({ "dropdownClass": "my-dropdown", "optionClass": "my-option awesome" });
           });
+
+          $().dropdown({autoinit: "select"});
          $('#SearchContent').bind('keypress',function(event){ 
              if(event.keyCode == 13){  
                  SearchSee();  
@@ -398,7 +412,7 @@
              var searchSelect=$('#SearchSelect').val();
              var seaContent=$('#SearchContent').val();
              var url;
-             alert(seaContent);
+             // alert(seaContent);
              switch(searchSelect){
                 case 'baidu':
                     url="http://www.baidu.com/s?wd=";
