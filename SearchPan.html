@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>百度网盘搜索测试版</title>
+    <link type="text/css" rel="stylesheet" href="assert/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assert/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <style type="text/css">
+        #result{
+            margin: 0 auto;
+            width: 100%;
+        }
+        .display{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="text-center h2">
+        <strong>百度云搜索测试</strong>
+    </div>
+    <div class="text-center">
+        <form id="seacontent">
+            <input type="text" name="SearchContent" placeholder="请输入搜索内容" id="SearchContent">
+            <input type="button" value="搜 索" class="btn btn-warning" onclick="Search()">
+        </form>
+    </div>
+</header>
+<section>
+    <div id="result">
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+                <th>url</th>
+                <th>unescapedUrl</th>
+            </tr>
+        </thead>
+            
+    </table>
+
+    </div>
+</section>
+</body>
+<!--<script type="text/javascript" src="assert/js/bootstrap.js"></script>-->
+<script type="text/javascript" src="assert/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<!--<script type="text/javascript" src="assert/js/npm.js"></script>-->
+<script type="text/javascript">
+    function Search() {
+        $.ajax({
+            type: "get",
+            url: "https://www.googleapis.com/customsearch/v1element",
+            dataType: "json",
+            data: {
+                "key": "AIzaSyCVAXiUzRYsML1Pv6RwSG1gunmMikTzQqY",
+                "rsz": "filtered_cse",
+                "num": "20",
+                "hl": "zh_CN",
+                "prettyPrint": "false",
+                "source": "gcsc",
+                "gss": ".com",
+                "sig": "581c068e7ad56cae00e4e2e8f7dc3837",
+                "cx": "000634644858919778116:qzrxq38gdgs",
+                "sort": "",
+                "q": $('#SearchContent').val(),
+                "oq": $('#SearchContent').val(),
+                "gs_l": "partner.12...0.0.7.4443.0.0.0.0.0.0.0.0..0.0.gsnos,n=13...0.0jj1..1ac..25.partner..30.0.0.8e6V-DNeD0Y",
+//                "callback": "google.search.Search.apiary15774",
+                "nocache": "1488969266480",
+                "googlehost": "www.google.com"
+            },
+            success: function (data) {
+                console.log(data);
+                //alert(data.results);
+                // alert("success");
+                var objConfig = [
+                        { DataId: "SFBM", DataAlign: "center", show: "display", Format: null, OnClick: null },
+                        { DataId: "SF", DataAlign: "center", show: "display", Format: null, OnClick: null },
+                        { DataId: "CZ", DataAlign: "center", show: "display", Format: null, OnClick: null }
+                    ];
+                var json = eval(data.results); // 
+                // for (var i = json.length - 1; i >= 0; i--) {
+                //     alert(json[i].title);
+                // }
+                $('#example').DataTable({
+                    searching:false, //去掉搜索框
+                    bLengthChange:false,//去掉每页多少条框体
+                    "data":json,
+                    "columns":[
+                        {"data":"title"},
+                        {"data":"content"},
+                        {"data":"url"},
+                        {"data":"unescapedUrl"}
+                    ]
+                });
+            },
+            error: function (XMLResponse) {
+//                alert(XMLResponse.responseText);
+                alert(arguments[1]);
+            }
+        });
+    }
+</script>
+</html>
