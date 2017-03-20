@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="shortcut icon" href="img/myicon.ico"> 
+
+    <title>导 航 -Allen</title>
+
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Dropdown.css -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">
+
+    <!-- Template styles -->
+    <style rel="stylesheet">
+        /* TEMPLATE STYLES */
+        /* Necessary for full page carousel*/
+        
+        html,
+        body {
+            height: 100%;
+        }
+        /* Navigation*/
+        
+        .navbar {
+            background-color: transparent;
+        }
+        
+        .top-nav-collapse {
+            background-color: #304a74;
+        }
+        
+        footer.page-footer {
+            background-color: #304a74;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .navbar {
+                background-color: #4285F4;
+            }
+        }
+        
+        .scrolling-navbar {
+            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            transition: background .5s ease-in-out, padding .5s ease-in-out;
+        }
+        /* Carousel*/
+        
+        .carousel {
+            height: 65%;
+        }
+        
+        @media (max-width: 776px) {
+            .carousel {
+                height: 100%;
+            }
+        }
+        
+        .carousel-item,
+        .active {
+            height: 100%;
+        }
+        
+        .carousel-inner {
+            height: 90%;
+        }
+        
+        /*Caption*/
+        
+        .flex-center {
+            color: #fff;
+        }
+
+        .seabox{
+            min-width: 200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <!--Navbar-->
+    <nav class="navbar navbar-toggleable-md navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <strong><i class="fa fa-send" aria-hidden="true"></i> 导航</strong>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav1">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fa fa-search" aria-hidden="true"></i>搜索</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="visitor.html"><i class="fa fa-user" aria-hidden="true"></i>访客<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"><i class="fa fa-heart" aria-hidden="true"></i>支持</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/Allenyep/SearchPage"><i class="fa fa-github" aria-hidden="true"></i>github</a>
+                    </li>
+                </ul>
+                <form class="form-inline waves-effect waves-light">
+                    <input class="form-control" type="text" placeholder="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-3" class="carousel slide carousel-fade white-text" data-ride="carousel" data-interval="false">
+
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+
+            <!-- First slide -->
+            <div class="carousel-item active view hm-black-light" style="background-image: url('img\\background\\14.jpg'); background-repeat: no-repeat; background-size: cover;">
+                
+                <!-- Caption -->
+                <div class="full-bg-img flex-center white-text">
+                    <ul class="animated fadeInUp col-md-12">
+                        <li>
+                            <h1 class="h1-responsive " style="font-size: 3rem"><i class="fa fa-send" aria-hidden="true"></i> Yep导 航</h1></li>
+                        <li>
+                            <p>Best places you should see, traditional dishes that you have to try</p>
+                        </li>
+                        <li>
+                            <form action="" method="Get" id="SearchForm">
+                                <div class="md-form input-group" style="width: 70%; margin: 0 auto; ">
+                                     <div class="input-group">
+                                        <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
+                                        <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" style="color: white;">                          
+                                        <select class="md-select" id="SearchSelect" >
+                                                <option value="baidu" selected class="rounded-circle">百度</option>
+                                                <option value="zhihu" class="rounded-circle">知乎</option>
+                                                <option value="wangpan" class="rounded-circle">百度网盘</option>
+                                                <option value="weibo" class="rounded-circle">微博</option>
+                                                <option value="icon" class="rounded-circle">Icon</option>
+                                                <option value="github" class="rounded-circle">github</option>
+                                                <option value="google" class="rounded-circle">google</option>
+                                        </select> 
+                                        
+                                    </div> 
+                                </div>
+                                <a href="javascript:void();" class="btn btn-info btn-lg" onclick="SearchSee()"> See!</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.Caption -->
+                
+            </div>
+            <!--/.First slide-->
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+
+    <br>
+
+
+
+
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only">
+
+        <!--Footer Links-->
+        <div class="container-fluid">
+            <div class="row">
+
+                <!--First column-->
+                <div class="col-lg-3 offset-lg-1 hidden-lg-down">
+                    <h5 class="title">ABOUT MATERIAL DESIGN</h5>
+                    <p>Material Design (codenamed Quantum Paper) is a design language developed by Google. </p>
+
+                    <p>Material Design for Bootstrap (MDB) is a powerful Material Design UI KIT for most popular HTML, CSS, and JS framework - Bootstrap.</p>
+                </div>
+                <!--/.First column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Second column-->
+                <div class="col-lg-2 col-md-4 offset-lg-1">
+                    <h5 class="title">Recent Trips</h5>
+                    <ul>
+                        <li><a href="#!">Balkans</a></li>
+                        <li><a href="#!">Tatra Mountains</a></li>
+                        <li><a href="#!">Norway Fjords</a></li>
+                        <li><a href="#!">Baikal Lake</a></li>
+                    </ul>
+                </div>
+                <!--/.Second column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Third column-->
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="title">Yep导航</h5>
+                    <ul>
+                        <li><a href="#!">"Things I learn on the road"</a></li>
+                        <li><a href="#!">"Low-budget traveling made simple"</a></li>
+                        <li><a href="#!">"Talking with locals"</a></li>
+                        <li><a href="#!">"Leaving things behind"</a></li>
+                    </ul>
+                </div>
+                <!--/.Third column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Fourth column-->
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="title">Follow me on</h5>
+                    <ul>
+                        <li><a href="#!">Facebook</a></li>
+                        <li><a href="#!">Instagram</a></li>
+                        <li><a href="#!">Twitter</a></li>
+                        <li><a href="#!">Pinterest</a></li>
+                    </ul>
+                </div>
+                <!--/.Fourth column-->
+
+            </div>
+        </div>
+        <!--/.Footer Links-->
+
+        <hr>
+
+        <!--Call to action-->
+        <div class="call-to-action">
+            <h4>Material Design for Bootstrap</h4>
+            <ul>
+                <li><h5>Get our UI KIT for free</h5></li>
+                <li>Designed by <a href="https://github.com/Allenyep">Allenyep</a></li>
+            </ul>
+        </div>
+        <!--/.Call to action-->
+
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                © 2015 Copyright: <a href="http://www.MDBootstrap.com"> MDBootstrap.com </a>
+
+            </div>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+    <!-- doropdown.js -->
+    <script type="text/javascript" src="js/jquery.dropdown.js"></script>
+
+    <script type="text/javascript">        
+         // Material Select Initialization
+          // $.material.init();
+
+          $(document).ready(function() {
+            $(".select").dropdown({ "dropdownClass": "my-dropdown", "optionClass": "my-option awesome" });
+          });
+
+          $().dropdown({autoinit: "select"});
+         $('#SearchContent').bind('keypress',function(event){ 
+             if(event.keyCode == 13){  
+                 SearchSee();  
+             }  
+         });
+
+         function SearchSee() {
+             var seaForm=$('#SearchForm');
+             var searchSelect=$('#SearchSelect').val();
+             var seaContent=$('#SearchContent').val();
+             var url;
+             // alert(seaContent);
+             switch(searchSelect){
+                case 'baidu':
+                    url="http://www.baidu.com/s?wd=";
+                    // window.open("http://www.baidu.com/s?wd="+seaContent);
+                    break;
+                case 'zhihu':
+                    url="https://www.zhihu.com/search?type=content&q=";
+                    break;
+                case 'icon':
+                    url="http://www.easyicon.net/iconsearch/";
+                    break;
+                case 'github':
+                    url="https://github.com/search?utf8=%E2%9C%93&q=";
+                    break;
+                case 'wangpan':
+                    url="http://www.sobaidupan.com/search.asp?wd=";
+                    break;
+                case 'weibo':
+                    url="http://s.weibo.com/weibo/";
+                    break;
+                case 'google':
+                    url="https://www.google.com.hk/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiUjI7PxtXSAhUKwrwKHdbRCVIQPAgD#safe=strict&hl=zh-CN&*&q="
+             }
+            window.open(url+seaContent);
+         }
+    </script>
+</body>
+
+</html>
