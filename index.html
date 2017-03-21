@@ -112,7 +112,7 @@
                         <a class="nav-link"><i class="fa fa-search" aria-hidden="true"></i>搜索 <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>访客</a>
+                        <a class="nav-link" href="visitor.html"><i class="fa fa-user" aria-hidden="true"></i>访客</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"><i class="fa fa-heart" aria-hidden="true"></i>支持</a>
@@ -150,8 +150,9 @@
                             <form action="" method="Get" id="SearchForm">
                                 <div class="md-form input-group" style="width: 70%; margin: 0 auto; ">
                                      <div class="input-group">
+                                        <input name="tn" type="HIDDEN" value="baidu">
                                         <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
-                                        <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" style="color: white;">                          
+                                        <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" baiduSug="1" style="color: white;">                          
                                         <select class="md-select" id="SearchSelect" >
                                                 <option value="baidu" selected class="rounded-circle">百度</option>
                                                 <option value="zhihu" class="rounded-circle">知乎</option>
@@ -161,10 +162,12 @@
                                                 <option value="github" class="rounded-circle">github</option>
                                                 <option value="google" class="rounded-circle">google</option>
                                         </select> 
+                                        
                                     </div> 
                                 </div>
                                 <a href="javascript:void();" class="btn btn-info btn-lg" onclick="SearchSee()"> See!</a>
                             </form>
+                            <script charset="gbk" src="http://www.baidu.com/js/opensug.js"></script>  
                         </li>
                     </ul>
                 </div>
