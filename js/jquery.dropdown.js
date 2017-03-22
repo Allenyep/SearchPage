@@ -1,421 +1,212 @@
-/* globals jQuery, window, document */
+/**
+ * jquery.dropdown.js v1.0.0
+ * http://www.codrops.com
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright 2012, Codrops
+ * http://www.codrops.com
+ */
+;( function( $, window, undefined ) {
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        module.exports = factory(require('jquery'));
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-}(function($) {
+	'use strict';
 
-  var methods = {
-    options : {
-      "optionClass": "",
-      "dropdownClass": "",
-      "autoinit": false,
-      "callback": false,
-      "onSelected": false,
-      "destroy": function(element) {
-        this.destroy(element);
-      },
-      "dynamicOptLabel": "Add a new option..."
-    },
-    init: function(options) {
+	$.DropDown = function( options, element ) {
+		this.$el = $( element );
+		this._init( options );
+	};
 
-      // Apply user options if user has defined some
-      if (options) {
-        options = $.extend(methods.options, options);
-      } else {
-        options = methods.options;
-      }
+	// the options
+	$.DropDown.defaults = {
+		speed : 300,
+		easing : 'ease',
+		gutter : 0,
+		// initial stack effect
+		stack : true,
+		// delay between each option animation
+		delay : 0,
+		// random angle and positions for the options
+		random : false,
+		// rotated [right||left||false] : the options will be rotated to thr right side or left side.
+		// make sure to tune the transform origin in the stylesheet
+		rotated : false,
+		// effect to slide in the options. value is the margin to start with
+		slidingIn : false,
+		onOptionSelect : function(opt) { return false; }
+	};
 
-      function initElement($select) {
-        // Don't do anything if this is not a select or if this select was already initialized
-        if ($select.data("dropdownjs") || !$select.is("select")) {
-          return;
-        }
+	$.DropDown.prototype = {
 
-        // Is it a multi select?
-        var multi = $select.attr("multiple");
+		_init : function( options ) {
 
-        // Does it allow to create new options dynamically?
-        var dynamicOptions = $select.attr("data-dynamic-opts"),
-            $dynamicInput = $();
+			// options
+			this.options = $.extend( true, {}, $.DropDown.defaults, options );
+			this._layout();
+			this._initEvents();
 
-        // Create the dropdown wrapper
-        var $dropdown = $("<div></div>");
-        $dropdown.addClass("dropdownjs").addClass(options.dropdownClass);
-        $dropdown.data("select", $select);
+		},
+		_layout : function() {
 
-        // Create the fake input used as "select" element and cache it as $input
-        var $input = $("<input type=text readonly class=fakeinput>");
-        if ($.material) { $input.data("mdproc", true); }
-        // Append it to the dropdown wrapper
-        $dropdown.append($input);
+			var self = this;
+			this.minZIndex = 1000;
+			var value = this._transformSelect();
+			this.opts = this.listopts.children( 'li' );
+			this.optsCount = this.opts.length;
+			this.size = { width : this.dd.width(), height : this.dd.height() };
+			
+			var elName = this.$el.attr( 'name' ), elId = this.$el.attr( 'id' ),
+				inputName = elName !== undefined ? elName : elId !== undefined ? elId : 'cd-dropdown-' + ( new Date() ).getTime();
 
-        // Create the UL that will be used as dropdown and cache it AS $ul
-        var $ul = $("<ul></ul>");
-        $ul.data("select", $select);
+			this.inputEl = $( '<input type="hidden" name="' + inputName + '" value="' + value + '"></input>' ).insertAfter( this.selectlabel );
+			
+			this.selectlabel.css( 'z-index', this.minZIndex + this.optsCount );
+			this._positionOpts();
+			if( Modernizr.csstransitions ) {
+				setTimeout( function() { self.opts.css( 'transition', 'all ' + self.options.speed + 'ms ' + self.options.easing ); }, 25 );
+			}
 
-        // Append it to the dropdown
-        $dropdown.append($ul);
+		},
+		_transformSelect : function() {
 
-        // Transfer the placeholder attribute
-        $input.attr("placeholder", $select.attr("placeholder"));
+			var optshtml = '', selectlabel = '', value = -1;
+			this.$el.children( 'option' ).each( function() {
 
-        // Loop trough options and transfer them to the dropdown menu
-        $select.find("option").each(function() {
-          // Cache $(this)
-          var $this = $(this);
-          methods._addOption($ul, $this);
+				var $this = $( this ),
+					val = isNaN( $this.attr( 'value' ) ) ? $this.attr( 'value' ) : Number( $this.attr( 'value' ) ) ,
+					classes = $this.attr( 'class' ),
+					selected = $this.attr( 'selected' ),
+					label = $this.text();
 
-        });
+				if( val !== -1 ) {
+					optshtml += 
+						classes !== undefined ? 
+							'<li data-value="' + val + '"><span class="' + classes + '">' + label + '</span></li>' :
+							'<li data-value="' + val + '"><span>' + label + '</span></li>';
+				}
 
-        // If this select allows dynamic options add the widget
-        if (dynamicOptions) {
-          $dynamicInput = $("<li class=dropdownjs-add></li>");
-          $dynamicInput.append("<input>");
-          $dynamicInput.find("input").attr("placeholder", options.dynamicOptLabel);
-          $ul.append($dynamicInput);
-        }
+				if( selected ) {
+					selectlabel = label;
+					value = val;
+				}
 
+			} );
 
+			this.listopts = $( '<ul/>' ).append( optshtml );
+			this.selectlabel = $( '<span/>' ).append( selectlabel );
+			this.dd = $( '<div class="cd-dropdown"/>' ).append( this.selectlabel, this.listopts ).insertAfter( this.$el );
+			this.$el.remove();
 
-        // Cache the dropdown options
-        var selectOptions = $dropdown.find("li");
+			return value;
 
-        // If is a single select, selected the first one or the last with selected attribute
-        if (!multi) {
-            var $selected;
-            if ($select.find(":selected").length) {
-                $selected = $select.find(":selected").last();
-            }
-            else {
-                $selected = $select.find("option, li").first();
-               // $selected = $select.find("option").first();
-            }
-            methods._select($dropdown, $selected);
-        } else {
-            var selectors = [], val = $select.val()
-            for (var i in val) {
-              selectors.push('li[value=' + val[i] + ']')
-            }
-            if (selectors.length > 0) {
-              var $target = $dropdown.find(selectors.join(','));
-              $target.removeClass("selected");
-              methods._select($dropdown, $target);
-            }
-        }
+		},
+		_positionOpts : function( anim ) {
 
-        // Transfer the classes of the select to the input dropdown
-        $input.addClass($select[0].className);
+			var self = this;
 
-        // Hide the old and ugly select
-        $select.hide().attr("data-dropdownjs", true);
+			this.listopts.css( 'height', 'auto' );
+			this.opts
+				.each( function( i ) {
+					$( this ).css( {
+						zIndex : self.minZIndex + self.optsCount - 1 - i,
+						top : self.options.slidingIn ? ( i + 1 ) * ( self.size.height + self.options.gutter ) : 0,
+						left : 0,
+						marginLeft : self.options.slidingIn ? i % 2 === 0 ? self.options.slidingIn : - self.options.slidingIn : 0,
+						opacity : self.options.slidingIn ? 0 : 1,
+						transform : 'none'
+					} );
+				} );
 
-        // Bring to life our awesome dropdownjs
-        $select.after($dropdown);
+			if( !this.options.slidingIn ) {
+				this.opts
+					.eq( this.optsCount - 1 )
+					.css( { top : this.options.stack ? 9 : 0, left : this.options.stack ? 4 : 0, width : this.options.stack ? this.size.width - 8 : this.size.width, transform : 'none' } )
+					.end()
+					.eq( this.optsCount - 2 )
+					.css( { top : this.options.stack ? 6 : 0, left : this.options.stack ? 2 : 0, width : this.options.stack ? this.size.width - 4 : this.size.width, transform : 'none' } )
+					.end()
+					.eq( this.optsCount - 3 )
+					.css( { top : this.options.stack ? 3 : 0, left : 0, transform : 'none' } );
+			}
 
-        // Call the callback
-        if (options.callback) {
-          options.callback($dropdown);
-        }
+		},
+		_initEvents : function() {
+			
+			var self = this;
+			
+			this.selectlabel.on( 'mousedown.dropdown', function( event ) {
+				self.opened ? self.close() : self.open();
+				return false;
 
-        //---------------------------------------//
-        // DROPDOWN EVENTS                       //
-        //---------------------------------------//
+			} );
 
-        // On click, set the clicked one as selected
-        $ul.on("click", "li:not(.dropdownjs-add)", function(e) {
-          methods._select($dropdown, $(this));
-          // trigger change event, if declared on the original selector
-          $select.change();
-        });
-        $ul.on("keydown", "li:not(.dropdownjs-add)", function(e) {
-          if (e.which === 27) {
-            $(".dropdownjs > ul > li").attr("tabindex", -1);
-            return $input.removeClass("focus").blur();
-          }
-          if (e.which === 32 && !$(e.target).is("input")) {
-            methods._select($dropdown, $(this));
-            return false;
-          }
-        });
+			this.opts.on( 'click.dropdown', function() {
+				if( self.opened ) {
+					var opt = $( this );
+					self.options.onOptionSelect( opt );
+					self.inputEl.val( opt.data( 'value' ) );
+					self.selectlabel.html( opt.html() );
+					self.close();
+				}
+			} );
 
-        $ul.on("focus", "li:not(.dropdownjs-add)", function() {
-          if ($select.is(":disabled")) {
-            return;
-          }
-          $input.addClass("focus");
-        });
+		},
+		open : function() {
+			var self = this;
+			this.dd.toggleClass( 'cd-active' );
+			this.listopts.css( 'height', ( this.optsCount + 1 ) * ( this.size.height + this.options.gutter ) );
+			this.opts.each( function( i ) {
 
-        // Add new options when the widget is used
-        if (dynamicOptions && dynamicOptions.length) {
-          $dynamicInput.on("keydown", function(e) {
-            if(e.which !== 13) return;
-            var $option = $("<option>"),
-                val = $dynamicInput.find("input").val();
-            $dynamicInput.find("input").val("");
+				$( this ).css( {
+					opacity : 1,
+					top : self.options.rotated ? self.size.height + self.options.gutter : ( i + 1 ) * ( self.size.height + self.options.gutter ),
+					left : self.options.random ? Math.floor( Math.random() * 11 - 5 ) : 0,
+					width : self.size.width,
+					marginLeft : 0,
+					transform : self.options.random ?
+						'rotate(' + Math.floor( Math.random() * 11 - 5 ) + 'deg)' :
+						self.options.rotated ?
+							self.options.rotated === 'right' ?
+								'rotate(-' + ( i * 5 ) + 'deg)' :
+								'rotate(' + ( i * 5 ) + 'deg)'
+							: 'none',
+					transitionDelay : self.options.delay && Modernizr.csstransitions ? self.options.slidingIn ? ( i * self.options.delay ) + 'ms' : ( ( self.optsCount - 1 - i ) * self.options.delay ) + 'ms' : 0
+				} );
 
-            $option.attr("value", val);
-            $option.text(val);
-            $select.append($option);
+			} );
+			this.opened = true;
 
-          });
-        }
+		},
+		close : function() {
 
-        // Listen for new added options and update dropdown if needed
-        $select.on("DOMNodeInserted", function(e) {
-          var $this = $(e.target);
-          if (!$this.val().length) return;
+			var self = this;
+			this.dd.toggleClass( 'cd-active' );
+			if( this.options.delay && Modernizr.csstransitions ) {
+				this.opts.each( function( i ) {
+					$( this ).css( { 'transition-delay' : self.options.slidingIn ? ( ( self.optsCount - 1 - i ) * self.options.delay ) + 'ms' : ( i * self.options.delay ) + 'ms' } );
+				} );
+			}
+			this._positionOpts( true );
+			this.opened = false;
 
-          methods._addOption($ul, $this);
-          $ul.find("li").not(".dropdownjs-add").attr("tabindex", 0);
+		}
 
-        });
+	}
 
-        $select.on("DOMNodeRemoved", function(e) {
-          var deletedValue = $(e.target).attr('value');
-          $ul.find("li[value='"+deletedValue+"']").remove();
-          var $selected;
+	$.fn.dropdown = function( options ) {
+		var instance = $.data( this, 'dropdown' );
+		if ( typeof options === 'string' ) {
+			var args = Array.prototype.slice.call( arguments, 1 );
+			this.each(function() {
+				instance[ options ].apply( instance, args );
+			});
+		}
+		else {
+			this.each(function() {
+				instance ? instance._init() : instance = $.data( this, 'dropdown', new $.DropDown( options, this ) );
+			});
+		}
+		return instance;
+	};
 
-          setTimeout(function () {
-            if ($select.find(":selected").length) {
-              $selected = $select.find(":selected").last();
-            }
-            else {
-              $selected = $select.find("option, li").first();
-            }
-            methods._select($dropdown, $selected);
-          }, 100);
-
-        });
-
-        // Update dropdown when using val, need to use .val("value").trigger("change");
-        $select.on("change", function(e) {
-          var $this = $(e.target);
-
-          if (!multi) {
-            var $selected;
-            if ($select.find(":selected").length) {
-              $selected = $select.find(":selected").last();
-            }
-            else {
-              $selected = $select.find("option, li").first();
-            }
-            methods._select($dropdown, $selected);
-          } else {
-            var target = $select.find(":selected");
-            // Unselect all options
-            selectOptions.removeClass("selected");
-            // Select options
-            target.each(function () {
-                var selected = selectOptions.filter("[value=\"" + $(this).attr("value") + "\"]");
-                selected.addClass("selected");
-            });
-          }
-        });
-
-        // Used to make the dropdown menu more dropdown-ish
-        $input.on("click focus", function(e) {
-          e.stopPropagation();
-          if ($select.is(":disabled")) {
-            return;
-          }
-          $(".dropdownjs > ul > li").attr("tabindex", -1);
-          $(".dropdownjs > input").not($(this)).removeClass("focus").blur();
-
-          $(".dropdownjs > ul > li").not(".dropdownjs-add").attr("tabindex", 0);
-
-          // Set height of the dropdown
-          var coords = {
-            top: $(this).offset().top - $(document).scrollTop(),
-            left: $(this).offset().left - $(document).scrollLeft(),
-            bottom: $(window).height() - ($(this).offset().top - $(document).scrollTop()),
-            right: $(window).width() - ($(this).offset().left - $(document).scrollLeft())
-          };
-
-          var height = coords.bottom;
-
-          // Decide if place the dropdown below or above the input
-          if (height < 200 && coords.top > coords.bottom) {
-            height = coords.top;
-            $ul.attr("placement", $("body").hasClass("rtl") ? "top-right" : "top-left");
-          } else {
-            $ul.attr("placement", $("body").hasClass("rtl") ? "bottom-right" : "bottom-left");
-          }
-
-          $(this).next("ul").css("max-height", height - 20);
-          $(this).addClass("focus");
-        });
-        // Close every dropdown on click outside
-        $(document).on("click", function(e) {
-
-          // Don't close the multi dropdown if user is clicking inside it
-          if (multi && $(e.target).parents(".dropdownjs").length) return;
-
-          // Don't close the dropdown if user is clicking inside the dynamic-opts widget
-          if ($(e.target).parents(".dropdownjs-add").length || $(e.target).is(".dropdownjs-add")) return;
-
-          // Close opened dropdowns
-          $(".dropdownjs > ul > li").attr("tabindex", -1);
-            if ($(e.target).hasClass('disabled')) {
-              return;
-        }
-          $input.removeClass("focus");
-        });
-      }
-
-      if (options.autoinit) {
-        $(document).on("DOMNodeInserted", function(e) {
-          var $this = $(e.target);
-          if (!$this.is("select")) {
-            $this = $this.find('select');
-          }
-            $this.each(function() {
-                if ($(this).is(options.autoinit)) {
-                    initElement($(this));
-                }
-            });
-        });
-      }
-
-      // Loop trough elements
-      $(this).each(function() {
-        initElement($(this));
-      });
-    },
-    select: function(target) {
-      var $target = $(this).find("[value=\"" + target + "\"]");
-      methods._select($(this), $target);
-    },
-    _select: function($dropdown, $target) {
-
-      if ($target.is(".dropdownjs-add")) return;
-
-      // Get dropdown's elements
-      var $select = $dropdown.data("select"),
-          $input  = $dropdown.find("input.fakeinput");
-      // Is it a multi select?
-      var multi = $select.attr("multiple");
-
-      // Cache the dropdown options
-      var selectOptions = $dropdown.find("li");
-
-      // Behavior for multiple select
-      if (multi) {
-        // Toggle option state
-        $target.toggleClass("selected");
-        // Toggle selection of the clicked option in native select
-        $target.each(function(){
-          var $selected = $select.find("[value=\"" + $(this).attr("value") + "\"]");
-          $selected.prop("selected", $(this).hasClass("selected"));
-        });
-        // Add or remove the value from the input
-        var text = [];
-        selectOptions.each(function() {
-          if ($(this).hasClass("selected")) {
-            text.push($(this).text());
-          }
-        });
-        $input.val(text.join(", "));
-      }
-
-      // Behavior for single select
-      if (!multi) {
-        if ($target.hasClass("disabled")) {
-          return;
-        }
-        // Unselect options except the one that will be selected
-        if ($target.is("li")) {
-            selectOptions.not($target).removeClass("selected");
-        }
-        // Select the selected option
-        $target.addClass("selected");
-        // Set the value to the native select
-        $select.val($target.attr("value"));
-        // Set the value to the input
-        $input.val($target.text().trim());
-      }
-
-      // This is used only if Material Design for Bootstrap is selected
-      if ($.material) {
-        if ($input.val().trim()) {
-          $select.removeClass("empty");
-        } else {
-          $select.addClass("empty");
-        }
-      }
-
-       // Call the callback
-        if (this.options.onSelected) {
-            this.options.onSelected($target.attr("value"));
-        }
-
-    },
-    _addOption: function($ul, $this) {
-      // Create the option
-      var $option = $("<li></li>");
-
-      // Style the option
-      $option.addClass(this.options.optionClass);
-
-      // If the option has some text then transfer it
-      if ($this.text()) {
-        $option.text($this.text());
-      }
-      // Otherwise set the empty label and set it as an empty option
-      else {
-        $option.html("&nbsp;");
-      }
-      // Set the value of the option
-      $option.attr("value", $this.val());
-
-      // Will user be able to remove this option?
-      if ($ul.data("select").attr("data-dynamic-opts")) {
-        $option.append("<span class=close></span>");
-        $option.find(".close").on("click", function() {
-          $option.remove();
-          $this.remove();
-        });
-      }
-
-      // Ss it selected?
-      if ($this.prop("selected")) {
-        $option.attr("selected", true);
-        $option.addClass("selected");
-      }
-
-      if ($this.prop("disabled")) {
-        $option.addClass("disabled");
-      }
-
-      // Append option to our dropdown
-      if ($ul.find(".dropdownjs-add").length) {
-        $ul.find(".dropdownjs-add").before($option);
-      } else {
-        $ul.append($option);
-      }
-    },
-    destroy: function($e) {
-      $($e).show().removeAttr('data-dropdownjs').next('.dropdownjs').remove();
-    }
-  };
-
-  $.fn.dropdown = function(params) {
-    if( typeof methods[params] == 'function' ) methods[params](this);
-    if (methods[params]) {
-      return methods[params].apply(this, Array.prototype.slice.call(arguments,1));
-    } else if (typeof params === "object" | !params) {
-      return methods.init.apply(this, arguments);
-    } else {
-      $.error("Method " + params + " does not exists on jQuery.dropdown");
-    }
-  };
-
-}));
+} )( jQuery, window );

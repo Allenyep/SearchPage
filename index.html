@@ -24,7 +24,12 @@
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Dropdown.css -->
-    <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css"> -->
+
+    <link rel="stylesheet" type="text/css" href="css/style4.css" />
+
+    <script src="js/modernizr.custom.63321.js"></script>
+
 
     <!-- Template styles -->
     <style rel="stylesheet">
@@ -153,7 +158,7 @@
                                         <input name="tn" type="HIDDEN" value="baidu">
                                         <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
                                         <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" baiduSug="1" style="color: white;">                          
-                                        <select class="md-select" id="SearchSelect" >
+                                        <!-- <select class="md-select" id="SearchSelect" >
                                                 <option value="baidu" selected class="rounded-circle">百度</option>
                                                 <option value="zhihu" class="rounded-circle">知乎</option>
                                                 <option value="wangpan" class="rounded-circle">百度网盘</option>
@@ -161,8 +166,29 @@
                                                 <option value="icon" class="rounded-circle">Icon</option>
                                                 <option value="github" class="rounded-circle">github</option>
                                                 <option value="google" class="rounded-circle">google</option>
-                                        </select> 
+                                        </select>  -->
                                         
+                                        <div >
+                                            <select id="cd-dropdown" class="cd-select" style="z-index: 1;" >
+
+                                                <option value="baidu" selected>百度</option>
+
+                                                <option value="zhihu" >知乎</option>
+
+                                                <option value="wangpan" >网盘</option>
+
+                                                <option value="weibo" >微博</option>
+
+                                                <option value="icon" >Icon</option>
+
+                                                <option value="github" >github</option>
+
+                                                <option value="google" >google</option>
+
+
+                                            </select>
+                                        </div>
+
                                     </div> 
                                 </div>
                                 <a href="javascript:void();" class="btn btn-info btn-lg" onclick="SearchSee()"> See!</a>
@@ -399,11 +425,7 @@
          // Material Select Initialization
           // $.material.init();
 
-          $(document).ready(function() {
-            $(".select").dropdown({ "dropdownClass": "my-dropdown", "optionClass": "my-option awesome" });
-          });
 
-          $().dropdown({autoinit: "select"});
          $('#SearchContent').bind('keypress',function(event){ 
              if(event.keyCode == 13){  
                  SearchSee();  
@@ -442,6 +464,20 @@
             window.open(url+seaContent);
          }
     </script>
+
+        <script type="text/javascript">
+            $( function() {
+                $( '#cd-dropdown' ).dropdown({
+
+                    gutter : 5,
+
+                    stack : false,
+
+                    slidingIn : 100
+
+                });
+            });
+        </script>
 </body>
 
 </html>
