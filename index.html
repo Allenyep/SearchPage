@@ -24,12 +24,7 @@
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Dropdown.css -->
-    <!-- <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css"> -->
-
-    <link rel="stylesheet" type="text/css" href="css/style4.css" />
-
-    <script src="js/modernizr.custom.63321.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">
 
     <!-- Template styles -->
     <style rel="stylesheet">
@@ -68,7 +63,7 @@
         /* Carousel*/
         
         .carousel {
-            height: 65%;
+            height: 110%;
         }
         
         @media (max-width: 776px) {
@@ -127,7 +122,12 @@
                     </li>
                 </ul>
                 <form class="form-inline waves-effect waves-light">
-                    <input class="form-control" type="text" placeholder="Search">
+                    <!-- <input class="form-control" type="text" placeholder="Search"> -->
+                    <ul class="navbar-nav mr-auto" style="float: right;">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#container"><i class="fa fa-list-alt" aria-hidden="true"></i>快速链接</a>
+                        </li>  
+                    </ul>
                 </form>
             </div>
         </div>
@@ -152,13 +152,13 @@
                             <p>Best places you should see, traditional dishes that you have to try</p>
                         </li>
                         <li>
-                            <form action="" method="Get" id="SearchForm">
+                            <form action="http://www.baidu.com/baidu" target="_blank" id="SearchForm">
                                 <div class="md-form input-group" style="width: 70%; margin: 0 auto; ">
                                      <div class="input-group">
-                                        <input name="tn" type="HIDDEN" value="baidu">
+                                       <input name="tn" type="HIDDEN" value="baidu">
                                         <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
-                                        <input type="text" class="form-control seabox" placeholder="Search" id="SearchContent" baiduSug="1" style="color: white;">                          
-                                        <!-- <select class="md-select" id="SearchSelect" >
+                                        <input type="text" name="word" class="form-control seabox" placeholder="Search" id="SearchContent" baiduSug="1" style="color: white;">      
+                                        <select class="md-select" id="SearchSelect" >
                                                 <option value="baidu" selected class="rounded-circle">百度</option>
                                                 <option value="zhihu" class="rounded-circle">知乎</option>
                                                 <option value="wangpan" class="rounded-circle">百度网盘</option>
@@ -166,29 +166,7 @@
                                                 <option value="icon" class="rounded-circle">Icon</option>
                                                 <option value="github" class="rounded-circle">github</option>
                                                 <option value="google" class="rounded-circle">google</option>
-                                        </select>  -->
-                                        
-                                        <div >
-                                            <select id="cd-dropdown" class="cd-select" style="z-index: 1;" >
-
-                                                <option value="baidu" selected>百度</option>
-
-                                                <option value="zhihu" >知乎</option>
-
-                                                <option value="wangpan" >网盘</option>
-
-                                                <option value="weibo" >微博</option>
-
-                                                <option value="icon" >Icon</option>
-
-                                                <option value="github" >github</option>
-
-                                                <option value="google" >google</option>
-
-
-                                            </select>
-                                        </div>
-
+                                        </select> 
                                     </div> 
                                 </div>
                                 <a href="javascript:void();" class="btn btn-info btn-lg" onclick="SearchSee()"> See!</a>
@@ -262,6 +240,7 @@
                         <a class="btn btn-outline-default btn-sm btn-rounded waves-effect" target="_blank" href="http://www.imooc.com/"><strong>慕课网</strong></a>
                         <a class="btn btn-outline-default btn-sm btn-rounded waves-effect" target="_blank" href="http://www.runoob.com/"><strong>菜鸟教程</strong></a>
                         <a class="btn btn-outline-default btn-sm btn-rounded waves-effect" target="_blank" href="http://www.zhihu.com/"><strong>知乎</strong></a>
+                        <a class="btn btn-outline-default btn-sm btn-rounded waves-effect" target="_blank" href="http://xueshu.baidu.com/"><strong>百度学术</strong></a>
                     </div>
                     <!--/.Card content-->
 
@@ -421,11 +400,18 @@
     <!-- doropdown.js -->
     <script type="text/javascript" src="js/jquery.dropdown.js"></script>
 
+    <!-- 百度搜索提示 -->
+    <script charset="gbk" src="http://www.baidu.com/js/opensug.js"></script>  
+
     <script type="text/javascript">        
          // Material Select Initialization
           // $.material.init();
 
+          $(document).ready(function() {
+            $(".select").dropdown({ "dropdownClass": "my-dropdown", "optionClass": "my-option awesome" });
+          });
 
+          $().dropdown({autoinit: "select"});
          $('#SearchContent').bind('keypress',function(event){ 
              if(event.keyCode == 13){  
                  SearchSee();  
@@ -464,20 +450,6 @@
             window.open(url+seaContent);
          }
     </script>
-
-        <script type="text/javascript">
-            $( function() {
-                $( '#cd-dropdown' ).dropdown({
-
-                    gutter : 5,
-
-                    stack : false,
-
-                    slidingIn : 100
-
-                });
-            });
-        </script>
 </body>
 
 </html>
