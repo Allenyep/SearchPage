@@ -90,6 +90,17 @@
         .seabox{
             min-width: 200px;
         }
+
+        .login-box{
+            z-index: 100;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 660px;
+            height: 400px;
+            margin: -180px 0 0 -330px;
+        }
+
     </style>
 
 </head>
@@ -126,13 +137,61 @@
                     <ul class="navbar-nav mr-auto" style="float: right;">
                         <li class="nav-item">
                             <a class="nav-link" href="#container"><i class="fa fa-list-alt" aria-hidden="true"></i>快速链接</a>
-                        </li>  
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-login" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i>登陆</a>
+                        </li>
                     </ul>
                 </form>
             </div>
         </div>
     </nav>
     <!--/.Navbar-->
+
+    <!-- login-box -->
+    <div class="login-mask" style="display: none;height: 950px;background:#000;opacity: 0.5; position: fixed;"></div>
+    <div class="login-box" style="display: none;">
+        <!--Form with header-->
+        <div class="card">
+            <div class="card-block">
+
+                <!--Header-->
+                <div class="form-header  purple darken-4">
+                    <h3><i class="fa fa-lock"></i> Login:</h3>
+                    <a href="" class="close">X</a>
+                </div>
+                
+
+                <!--Body-->
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="form2" class="form-control">
+                    <label for="form2">Your email</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix"></i>
+                    <input type="password" id="form4" class="form-control">
+                    <label for="form4">Your password</label>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-deep-purple">Login</button>
+                </div>
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer">
+                <div class="options">
+                    <p>Not a member? <a href="#">Sign Up</a></p>
+                    <p>Forgot <a href="#">Password?</a></p>
+                </div>
+            </div>
+
+        </div>
+        <!--/Form with header-->
+    </div>
 
     <!--Carousel Wrapper-->
     <div id="carousel-example-3" class="carousel slide carousel-fade white-text" data-ride="carousel" data-interval="false">
@@ -449,6 +508,13 @@
              }
             window.open(url+seaContent);
          }
+
+         $('.btn-login').click(function(){
+            $('.login-mask').show();
+            $('.login-mask').height($(document).height);
+            $('.login-box').slideDown(200);
+
+         });
     </script>
 </body>
 
