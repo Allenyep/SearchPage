@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>图书馆</title>
+</head>
+<body>
+<form name="form1" onsubmit="javascript:return WebForm_OnSubmit();" id="form1" action="http://202.202.244.120/webrfidlib/TSDW/index.aspx" method="post">
+	<h1>图书馆查询</h1>
+	<select name="cmbSearchType" id="cmbSearchType" style="width: 90px;">
+		<option selected="selected" value="szName">题名</option>
+		<option value="szAuthor">责任者</option>
+		<option value="szBookIndex">索书号</option>
+		<option value="szISBN">ISBN</option>
+		<option value="szMainWord">关键词</option>
+		<option value="szBookID">条码号</option>
+	</select>
+	<input type="text" name="txtkey" id="txtkey">
+	<input type="submit" name="btnSearch" value="查 询">
+	<input type="hidden" name="ScriptManager1" value="upnBtn|btnSearch">
+	<input type="hidden" name="__EVENTTARGET" value="">
+	<input type="hidden" name="__EVENTARGUMENT" value="">
+	<input type="hidden" name="__VIEWSTATE" value="ZNVD52iuqEjp7UxFWIKksDTbIv4+KSDXs72Fn41RRTSrR0KKZGKrAr4he6pRtZ+0/3iM9hXpUBTRM/dGXIureMUoYJrJxT6V0ATIljPKty+nMljCqxAutkazzN+MU1d1/Ft6ENEr7MqYz+U4szCWo/e1cwlM5j0q91DpwvSFXMS9pzQ3RUsSkzLH5a1C0WptTau5FTopc6KchQNE6UupxkK03fvS3liaBGxTW6WoGG5pfFDEa2RMy+12SHsADQ1QheXJevcwB2J+Jf7GLi8NAJksHjOkgfPWlheXaK4U41aO+hpO">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" value="xzOi7n3Blqc0WXpqeoRLxqOUzEojlwOj0ojtAhqtEZYuhj9nSJ6PZqK255eQikqlkujv6+GCHffZWHIviP/1b4N87P2dgNI5Bvdv37e63MJS3ndsXdxSyYZdSMLY6EIG3phVqfzA05rGAPQdYf0kQRop9TdTh8VDJPMLp/LNQXY30K4y">
+	<input type="hidden" name="__ASYNCPOST" value="true">
+	页码<input type="text" name="txtNewPageIndex">
+</form>
+</body>
+</html>
+
+<!-- ScriptManager1:upnBtn|btnSearch
+__EVENTTARGET:
+__EVENTARGUMENT:
+__VIEWSTATE:OWj+8cyZ5Tx5z/ldDLUf62UBDlw+cRbXwzIH7kQVslaGvCbfjvj0h3Wq2NlLVx4ulieVVU2UAyw5nyxmOa6rH6/F18CQ+HojbrECce+WzKja41J2c0eQ3rxn5Dn6RxB6x71RzvwaAn6LFJAAtE3DAeYRjIFsCqOpuFtSEzpJPFH2I9u5Pr33Prga6uSpjenPYqx8nhy09GoeJuuP4Dy1unQ8CaGURilgW4WMPwuUi827h6cPSJTEVpbdtbYiNv3DstXcj8JQfpTJXNu7HGN1q1O0/b8L+UW2q6HzzRXWKGfr2vaz
+__VIEWSTATEENCRYPTED:
+__EVENTVALIDATION:5cRDexNwj8106vqcNr8lRgDSg80RHHF2tmB4rMoW4wcBPlvcQxv0aVqbYcxilcISbRsIcLJJcLtoV/nz8wqF+PHldIHZeLrfnJtijPX10HpGK32d0fVYlVDQRMzxbVY6WJaqGykRqe/TzkVg6sLXrJ7nX8SokLXJDmNcN5SdCuZVUODt
+cmbSearchType:szName
+txtkey:123
+txtNewPageIndex:
+__ASYNCPOST:true
+btnSearch:查 询
+
+cmbSearchType:szName
+txtkey:你
+btnSearch:查 询
+ScriptManager1:upnBtn|btnSearch
+__EVENTTARGET:
+__EVENTARGUMENT:
+__VIEWSTATE:ZNVD52iuqEjp7UxFWIKksDTbIv4+KSDXs72Fn41RRTSrR0KKZGKrAr4he6pRtZ+0/3iM9hXpUBTRM/dGXIureMUoYJrJxT6V0ATIljPKty+nMljCqxAutkazzN+MU1d1/Ft6ENEr7MqYz+U4szCWo/e1cwlM5j0q91DpwvSFXMS9pzQ3RUsSkzLH5a1C0WptTau5FTopc6KchQNE6UupxkK03fvS3liaBGxTW6WoGG5pfFDEa2RMy+12SHsADQ1QheXJevcwB2J+Jf7GLi8NAJksHjOkgfPWlheXaK4U41aO+hpO
+__VIEWSTATEENCRYPTED:
+__EVENTVALIDATION:xzOi7n3Blqc0WXpqeoRLxqOUzEojlwOj0ojtAhqtEZYuhj9nSJ6PZqK255eQikqlkujv6+GCHffZWHIviP/1b4N87P2dgNI5Bvdv37e63MJS3ndsXdxSyYZdSMLY6EIG3phVqfzA05rGAPQdYf0kQRop9TdTh8VDJPMLp/LNQXY30K4y
+__ASYNCPOST:true
+txtNewPageIndex:
+
+ScriptManager1:upnBtn|btnSearch
+__EVENTTARGET:
+__EVENTARGUMENT:
+__VIEWSTATE:ZNVD52iuqEjp7UxFWIKksDTbIv4+KSDXs72Fn41RRTSrR0KKZGKrAr4he6pRtZ+0/3iM9hXpUBTRM/dGXIureMUoYJrJxT6V0ATIljPKty+nMljCqxAutkazzN+MU1d1/Ft6ENEr7MqYz+U4szCWo/e1cwlM5j0q91DpwvSFXMS9pzQ3RUsSkzLH5a1C0WptTau5FTopc6KchQNE6UupxkK03fvS3liaBGxTW6WoGG5pfFDEa2RMy+12SHsADQ1QheXJevcwB2J+Jf7GLi8NAJksHjOkgfPWlheXaK4U41aO+hpO
+__VIEWSTATEENCRYPTED:
+__EVENTVALIDATION:xzOi7n3Blqc0WXpqeoRLxqOUzEojlwOj0ojtAhqtEZYuhj9nSJ6PZqK255eQikqlkujv6+GCHffZWHIviP/1b4N87P2dgNI5Bvdv37e63MJS3ndsXdxSyYZdSMLY6EIG3phVqfzA05rGAPQdYf0kQRop9TdTh8VDJPMLp/LNQXY30K4y
+cmbSearchType:szName
+txtkey:你
+txtNewPageIndex:
+__ASYNCPOST:true
+btnSearch:查 询 -->
