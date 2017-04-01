@@ -100,6 +100,15 @@
             height: 400px;
             margin: -180px 0 0 -330px;
         }
+        .register-box{
+        	z-index: 100;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 660px;
+            height: 400px;
+            margin: -180px 0 0 -330px;
+        }
 
     </style>
 
@@ -115,7 +124,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <strong><i class="fa fa-send" aria-hidden="true"></i> 导航</strong>
+                <strong><i class="fa fa-send" aria-hidden="true"></i> Yep导航</strong>
             </a>
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav mr-auto">
@@ -139,7 +148,7 @@
                             <a class="nav-link" href="#container"><i class="fa fa-list-alt" aria-hidden="true"></i>快速链接</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-login" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i>登陆</a>
+                            <a class="nav-link btn-login" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i>登录</a>
                         </li>
                     </ul>
                 </form>
@@ -149,7 +158,7 @@
     <!--/.Navbar-->
 
     <!-- login-box -->
-    <div class="login-mask" style="display: none;height: 950px;background:#000;opacity: 0.5; position: fixed;"></div>
+    <div class="login-mask" style="display: none;width: 100%; height: 950px;background:#000;opacity: 0.5; position: fixed; z-index: 10;"></div>
     <div class="login-box" style="display: none;">
         <!--Form with header-->
         <div class="card">
@@ -157,8 +166,8 @@
 
                 <!--Header-->
                 <div class="form-header  purple darken-4">
-                    <h3><i class="fa fa-lock"></i> Login:</h3>
-                    <a href="" class="close">X</a>
+                    <h3><i class="fa fa-lock"></i> 欢迎:</h3>
+                    <a href="#" class="close">X</a>
                 </div>
                 
 
@@ -166,17 +175,17 @@
                 <div class="md-form">
                     <i class="fa fa-envelope prefix"></i>
                     <input type="text" id="form2" class="form-control">
-                    <label for="form2">Your email</label>
+                    <label for="form2" class="active">账号</label>
                 </div>
 
                 <div class="md-form">
                     <i class="fa fa-lock prefix"></i>
                     <input type="password" id="form4" class="form-control">
-                    <label for="form4">Your password</label>
+                    <label for="form4">密码</label>
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-deep-purple">Login</button>
+                    <button class="btn btn-deep-purple">登录</button>
                 </div>
 
             </div>
@@ -184,13 +193,60 @@
             <!--Footer-->
             <div class="modal-footer">
                 <div class="options">
-                    <p>Not a member? <a href="#">Sign Up</a></p>
-                    <p>Forgot <a href="#">Password?</a></p>
+                    <p>没有账号? <a href="javascript:;" class="btn-register">注册</a></p>
+                    <p>忘记 <a href="javascript:;" class="btn-forgetpwd">密码?</a></p>
                 </div>
             </div>
 
         </div>
         <!--/Form with header-->
+    </div>
+    <div class="register-box" style="display: none;">
+    	<!--Form with header-->
+			<div class="card">
+			    <div class="card-block">
+
+			        <!--Header-->
+			        <div class="form-header blue-gradient">
+			            <h3><i class="fa fa-user"></i> 注 册:</h3>
+			            <a href="#" class="close">X</a>
+			        </div>
+			        <!--Body-->
+			        <div class="md-form">
+			            <i class="fa fa-user prefix"></i>
+			            <input type="text" id="form3" class="form-control">
+			            <label for="form3">你的昵称</label>
+			        </div>
+			        <div class="md-form">
+			            <i class="fa fa-envelope prefix"></i>
+			            <input type="text" id="form2" class="form-control">
+			            <label for="form2">你的邮箱</label>
+			        </div>
+
+			        <div class="md-form">
+			            <i class="fa fa-lock prefix"></i>
+			            <input type="password" id="form4" class="form-control">
+			            <label for="form4">你的密码</label>
+			        </div>
+
+			        <div class="md-form">
+			            <i class="fa fa-lock prefix"></i>
+			            <input type="password" id="form5" class="form-control">
+			            <label for="form5">确认密码</label>
+			        </div>
+
+			        <div class="text-center">
+			            <button class="btn btn-indigo">注 册</button>
+			            <hr>
+			            <fieldset class="form-group">
+			                <input type="checkbox" id="checkbox1">
+			                <label for="checkbox1">Subscribe me to the newsletter</label>
+			            </fieldset>
+			        </div>
+
+			    </div>
+			</div>
+		<!--/Form with header-->
     </div>
 
     <!--Carousel Wrapper-->
@@ -200,10 +256,10 @@
         <div class="carousel-inner" role="listbox">
 
             <!-- First slide -->
-            <div class="carousel-item active view hm-black-light" style="background-image: url('img\\background\\14.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div id="backgroundurl" class="carousel-item active view hm-black-light" style="background-image: url('img\\background\\10.jpg'); background-repeat: no-repeat; background-size: cover;">
                 
                 <!-- Caption -->
-                <div class="full-bg-img flex-center white-text">
+                <div class="full-bg-img flex-center ">
                     <ul class="animated fadeInUp col-md-12">
                         <li>
                             <h1 class="h1-responsive " style="font-size: 3rem"><i class="fa fa-send" aria-hidden="true"></i> Yep导 航</h1></li>
@@ -216,7 +272,7 @@
                                      <div class="input-group">
                                        <input name="tn" type="HIDDEN" value="baidu">
                                         <i class="fa fa-search fa-2x" style="margin-top: 10px;" aria-hidden="true"></i>
-                                        <input type="text" name="word" class="form-control seabox" placeholder="好的内容自己See一下" id="SearchContent" baiduSug="1" style="color: white;">      
+                                        <input type="text" name="word" class="form-control seabox" placeholder="想看什么see一下" id="SearchContent" baiduSug="1" style="background: white;border-radius:6px;">      
                                         <select class="md-select" id="SearchSelect" >
                                                 <option value="baidu" selected class="rounded-circle">百度</option>
                                                 <option value="zhihu" class="rounded-circle">知乎</option>
@@ -330,6 +386,7 @@
                 </div>
                 <!--/.Card-->
             </div>
+
             <div class="col-lg-4">
                 <!--Card-->
                 <div class="card">
@@ -343,6 +400,48 @@
                         <a class="btn btn-outline-danger  btn-sm btn-rounded waves-effect" target="_blank" href="https://www.douyu.com/directory/game/DOTA2"><strong>斗 鱼</strong></a>
                         <a class="btn btn-outline-danger  btn-sm btn-rounded waves-effect" target="_blank" href="http://www.youku.com/"><strong>优 酷</strong></a>
                         <a class="btn btn-outline-danger  btn-sm btn-rounded waves-effect" target="_blank" href="http://music.163.com/"><strong><i class="fa fa-music" aria-hidden="true"></i> 云音乐</strong></a>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+            </div>
+
+            <div class="col-lg-4">
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <div class="card-block">
+                        <!--Title-->
+                        <h4 class="card-title text-center"><i class="fa fa-internet-explorer" aria-hidden="true"></i> 科学上网</h4>
+                        <!--Text-->
+                        <a class="btn btn-outline-primary    btn-sm btn-rounded waves-effect" target="_blank" href="https://www.getlantern.org/"><strong><i class="fa fa-lightbulb-o" aria-hidden="true"></i> 蓝灯</strong></a>
+                        <a class="btn btn-outline-primary    btn-sm btn-rounded waves-effect" target="_blank" href="http://m.youtube.com/"><i class="fa fa-youtube" aria-hidden="true"></i><strong> Yotube</strong></a>
+                        <a class="btn btn-outline-primary    btn-sm btn-rounded waves-effect" target="_blank" href="http://instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i><strong> instagram</strong></a>
+                        <a class="btn btn-outline-primary    btn-sm btn-rounded waves-effect" target="_blank" href="https://www.panc.cc/"><strong>胖次网盘</strong></a>
+                        <a class="btn btn-outline-primary    btn-sm btn-rounded waves-effect" target="_blank" href="http://www.pixiv.net/"><strong> pixiv</strong></a>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+            </div>
+
+             <div class="col-lg-4">
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <div class="card-block">
+                        <!--Title-->
+                        <h4 class="card-title text-center"><i class="fa fa-bank" aria-hidden="true"></i> 校园相关</h4>
+                        <!--Text-->
+                        <a class="btn btn-outline-secondary    btn-sm btn-rounded waves-effect" target="_blank" href="http://www.cqjtu.edu.cn/"><strong>重交主页</strong></a>
+                        <a class="btn btn-outline-secondary    btn-sm btn-rounded waves-effect" target="_blank" href="http://202.202.244.120/webrfidlib/TSDW/index.aspx"><strong>图书查询</strong></a>
+                        <a class="btn btn-outline-secondary    btn-sm btn-rounded waves-effect" target="_blank" href="http://vod.cqjtu.edu.cn/"><strong>天佑乐视</strong></a>
+                        <a class="btn btn-outline-secondary    btn-sm btn-rounded waves-effect" target="_blank" href="http://www.cqjtu.edu.cn/main/ztwz.html"><strong>快速链接</strong></a>
+                        <a class="btn btn-outline-secondary    btn-sm btn-rounded waves-effect" target="_blank" href="http://ty.cqjtu.edu.cn/"><strong>天佑论坛</strong></a>
                     </div>
                     <!--/.Card content-->
 
@@ -467,7 +566,15 @@
           // $.material.init();
 
           $(document).ready(function() {
-            $(".select").dropdown({ "dropdownClass": "my-dropdown", "optionClass": "my-option awesome" });
+            var randomnum=Math.random()*16+1;
+            randomnum=Math.floor(randomnum);
+            var avatar = $("#backgroundurl").css("backgroundImage");
+           
+            console.log(avatar);
+            // url("file:///C:/Users/allen/Desktop/PanSearchTest/half-page-carousel/yepnavi/img/background/10.jpg")
+            var newurl="url(\"file:///C:/Users/allen/Desktop/PanSearchTest/half-page-carousel/yepnavi/img/background/"+randomnum+".jpg\")";
+            // alert(newurl);
+            $("#backgroundurl").css("background",newurl);
           });
 
           $().dropdown({autoinit: "select"});
@@ -514,6 +621,17 @@
             $('.login-mask').height($(document).height);
             $('.login-box').slideDown(200);
 
+         });
+
+         $('.close').click(function() {
+         	$('.login-mask').hide();
+         	$('.login-box').slideUp(200);
+         	$('.register-box').slideUp(200);
+         });
+
+         $('.btn-register').click(function() {
+         	$('.login-box').slideUp(200);
+         	$('.register-box').slideDown(200);
          });
     </script>
 </body>
