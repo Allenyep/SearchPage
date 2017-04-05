@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/com/itheima/dao/UserDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/dao/impl/UserDaoImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/domain/UserForm.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/service/UserService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/service/impl/UserServiceImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/utils/DBUtils.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/web/servlet/CodeServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/web/servlet/LoginOutServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/web/servlet/LoginServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/itheima/web/servlet/RegServlet.java" charset="GBK" />
+  </component>
+</project>
