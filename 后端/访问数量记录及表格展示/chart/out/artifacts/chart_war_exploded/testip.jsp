@@ -11,9 +11,6 @@
     <title>IP</title>
 </head>
 <body>
-    <%--<%--%>
-        <%--response.sendRedirect("/IPServlet");--%>
-    <%--%>--%>
     IP地址<%=request.getAttribute("ip")%>
     访问数<%=request.getAttribute("nums")%>
 </body>
