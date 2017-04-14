@@ -266,7 +266,7 @@
         <div class="carousel-inner" role="listbox">
 
             <!-- First slide -->
-            <div id="backgroundurl" class="carousel-item active view hm-black-light" style="background-image: url('img\\background\\10.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div id="backgroundurl" class="carousel-item active view hm-black-light" style=" background-repeat: no-repeat; background-size: cover;">
                 
                 <!-- Caption -->
                 <div class="full-bg-img flex-center ">
@@ -566,6 +566,9 @@
     <!-- 百度搜索提示 -->
     <script charset="gbk" src="http://www.baidu.com/js/opensug.js"></script>  
 
+    <!-- 粒子特效 -->
+    <script type="text/javascript" src="js/canvas-particle.js"></script>
+
     <script type="text/javascript">        
          // Material Select Initialization
           // $.material.init();
@@ -576,9 +579,26 @@
             var avatar = $("#backgroundurl").css("backgroundImage");
             console.log(avatar);
             // url("file:///C:/Users/allen/Desktop/PanSearchTest/half-page-carousel/yepnavi/img/background/10.jpg")
-            var newurl="url(\"file:///C:/Users/allen/Desktop/PanSearchTest/half-page-carousel/yepnavi/img/background/"+randomnum+".jpg\")";
+            var newurl="url(\"img/background/"+randomnum+".jpg\")";
             // alert(newurl);
             $("#backgroundurl").css("background",newurl);
+
+            //调用背景特效脚本
+            //配置
+             var config = {
+                vx: 4,
+                vy:  4,
+                height: 2,
+                width: 2,
+                count: 100,
+                color: "0, 255, 185",
+                stroke: "0,0,0",
+                dist: 6000,
+                e_dist: 20000,
+                max_conn: 10
+            }
+            //调用
+            CanvasParticle(config);
           });
 
           $().dropdown({autoinit: "select"});
