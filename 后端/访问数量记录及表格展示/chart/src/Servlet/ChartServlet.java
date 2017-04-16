@@ -29,7 +29,6 @@ public class ChartServlet extends HttpServlet{
             //获取list封装成JSON  参考页面http://blog.csdn.net/yy280458609/article/details/7736334
             JSONArray jsonArray=JSONArray.fromObject(list);
             System.out.println(jsonArray.toString());
-//            req.setAttribute("data",jsonArray.toString());
             /*
             接口制作 参考页面http://www.cnblogs.com/haochengjava/p/5084413.html
             * */

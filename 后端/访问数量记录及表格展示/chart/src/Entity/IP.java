@@ -22,7 +22,7 @@ public class IP {
         this.ip = ip;
     }
 
-    public long getNumber() {
+    public int getNumber() {
         return number;
     }
 
